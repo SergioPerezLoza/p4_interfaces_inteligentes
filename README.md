@@ -8,6 +8,142 @@
 Cuando el Cubo colisione con el Cilindro, las esferas de Tipo 1 comenzarán a moverse hacia las esferas de Tipo 2, mientras que las esferas de Tipo 2 se moverán hacia el Cilindro.
 ![video1](https://github.com/SergioPerezLoza/p4_interfaces_inteligentes/blob/main/My-project-4-SampleScene-Windows_-Mac_-Linux-Unity-2021.3.gif)
 
+```csharp
+using UnityEngine;
+using System;
+
+public class ejer1_cilindro : MonoBehaviour
+{
+    // Evento que se dispara cuando el cubo colisiona con el cilindro
+    public static event Action OnCuboColisionaConCilindro;
+
+    // Detecta la colisión con el cubo
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Cubo"))
+        {
+            Debug.Log("Cubo ha colisionado con el Cilindro");
+
+            // Dispara el evento para que las esferas reaccionen
+            if (OnCuboColisionaConCilindro != null)
+            {
+                OnCuboColisionaConCilindro.Invoke();
+            }
+        }
+    }
+}
+
+```
+
+```csharp
+using UnityEngine;
+
+public class ejer1_cubo : MonoBehaviour
+{
+    public float velocidad = 5f; // Velocidad de movimiento
+
+    void Update()
+    {
+        // Obtener entrada del teclado
+        float inputVertical = 0f;
+
+        // Tecla para mover hacia arriba
+        if (Input.GetKey(KeyCode.U))
+        {
+            inputVertical = 1f; // Subir
+        }
+        // Tecla para mover hacia abajo
+        else if (Input.GetKey(KeyCode.J))
+        {
+            inputVertical = -1f; // Bajar
+        }
+
+        // Mover el cubo hacia arriba o abajo
+        transform.Translate(0, inputVertical * velocidad * Time.deltaTime, 0);
+    }
+}
+
+```
+
+```csharp
+using UnityEngine;
+
+public class ejer1_esfera1 : MonoBehaviour
+{
+    public Transform objetivoEsferaTipo2; // Esfera de tipo 2 hacia la que se moverá
+    public float velocidad = 5f; // Velocidad de movimiento
+
+    private void OnEnable()
+    {
+        // Suscribirse al evento
+        ejer1_cilindro.OnCuboColisionaConCilindro += MoverHaciaObjetivo;
+    }
+
+    private void OnDisable()
+    {
+        // Desuscribirse del evento
+        ejer1_cilindro.OnCuboColisionaConCilindro -= MoverHaciaObjetivo;
+    }
+
+    // Método que se llama cuando ocurre la colisión
+    void MoverHaciaObjetivo()
+    {
+        // Iniciar el movimiento hacia la esfera de tipo 2
+        StartCoroutine(MoverHaciaEsferaTipo2());
+    }
+
+    System.Collections.IEnumerator MoverHaciaEsferaTipo2()
+    {
+        while (Vector3.Distance(transform.position, objetivoEsferaTipo2.position) > 0.1f)
+        {
+            // Moverse hacia la esfera de tipo 2
+            transform.position = Vector3.MoveTowards(transform.position, objetivoEsferaTipo2.position, velocidad * Time.deltaTime);
+            yield return null;
+        }
+    }
+}
+
+```
+
+```csharp
+using UnityEngine;
+
+public class ejer1_esfera2 : MonoBehaviour
+{
+    public Transform cilindro; // Cilindro hacia el que se moverá
+    public float velocidad = 5f; // Velocidad de movimiento
+
+    private void OnEnable()
+    {
+        // Suscribirse al evento
+        ejer1_cilindro.OnCuboColisionaConCilindro += MoverHaciaCilindro;
+    }
+
+    private void OnDisable()
+    {
+        // Desuscribirse del evento
+        ejer1_cilindro.OnCuboColisionaConCilindro -= MoverHaciaCilindro;
+    }
+
+    // Método que se llama cuando ocurre la colisión
+    void MoverHaciaCilindro()
+    {
+        // Iniciar el movimiento hacia el cilindro
+        StartCoroutine(MoverHaciaElCilindro());
+    }
+
+    System.Collections.IEnumerator MoverHaciaElCilindro()
+    {
+        while (Vector3.Distance(transform.position, cilindro.position) > 0.1f)
+        {
+            // Moverse hacia el cilindro
+            transform.position = Vector3.MoveTowards(transform.position, cilindro.position, velocidad * Time.deltaTime);
+            yield return null;
+        }
+    }
+}
+
+```
 
 
 **Ejercicio 2**:
