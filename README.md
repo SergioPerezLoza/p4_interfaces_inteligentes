@@ -148,6 +148,7 @@ public class ejer1_esfera2 : MonoBehaviour
 
 **Ejercicio 2**:
 Para el ejercicio 2 hemos sustituido con el asset importado las esferas por arañas y el cilindro por huevos de arañas.
+![image](https://github.com/user-attachments/assets/e5a14f91-427c-4cd8-854a-08c7e0a0459d)
 
 **Ejercicio 3**:
 
