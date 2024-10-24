@@ -151,7 +151,7 @@ Para el ejercicio 2 hemos sustituido con el asset importado las esferas por ara√
 ![image](https://github.com/user-attachments/assets/e5a14f91-427c-4cd8-854a-08c7e0a0459d)
 
 **Ejercicio 3**:
-![video]()
+![video](https://github.com/SergioPerezLoza/p4_interfaces_inteligentes/blob/main/My-project-_2_-Untitled-Windows_-Mac_-Linux-Unity-6-_6000.0.23f1__-_DX11_-2024-10-23-19-15-44.gif)
 **Ejercicio 4**:
 ![video](https://github.com/SergioPerezLoza/p4_interfaces_inteligentes/blob/main/My-project-_2_-Untitled-Windows_-Mac_-Linux-Unity-6-_6000.0.23f1__-_DX11_-2024-10-23-19-59-48.gif)
 **Ejercicio 5**:
