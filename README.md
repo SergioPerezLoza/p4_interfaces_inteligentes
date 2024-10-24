@@ -301,36 +301,6 @@ public class ejer3_araña1 : MonoBehaviour
 
 ```
 ```csharp
-// using UnityEngine;
-
-// public class ejer3_araña2 : MonoBehaviour
-// {
-//     public Transform objetoObjetivo; // El objeto hacia el que se orientarán las arañas
-
-//     void Update()
-//     {
-//         if (objetoObjetivo != null) // Asegurarse de que el objeto objetivo esté asignado
-//         {
-//             // Calcular la dirección hacia el objeto objetivo
-//             Vector3 direccion = objetoObjetivo.position - transform.position;
-//             direccion.y = 0; // Para mantener la orientación solo en el eje horizontal
-
-//             // Verificar que la dirección no sea cero
-//             if (direccion != Vector3.zero)
-//             {
-//                 // Calcular la rotación hacia el objeto objetivo
-//                 Quaternion rotacion = Quaternion.LookRotation(direccion);
-
-//                 // Rotar la araña hacia el objeto objetivo con suavidad
-//                 transform.rotation = Quaternion.Slerp(transform.rotation, rotacion, Time.deltaTime * 2f);
-//             }
-//         }
-//         else
-//         {
-//             Debug.LogWarning("El objeto objetivo no está asignado a la araña de tipo 2.");
-//         }
-//     }
-// }
 using UnityEngine;
 
 public class ejer3_araña2 : MonoBehaviour
