@@ -488,8 +488,179 @@ public class ejer5_huevo : MonoBehaviour
 
 ```
 **Ejercicio 7**:
-![video]()
+![video](https://github.com/SergioPerezLoza/p4_interfaces_inteligentes/blob/main/My-project-_2_-Untitled-Windows_-Mac_-Linux-Unity-6-_6000.0.23f1__-_DX11_-2024-10-24-21-10-43.gif)
+```csharp
+using UnityEngine;
+
+public class ejer7_huevo : MonoBehaviour
+{
+    public ejer7_puntuacion puntuacionManager; // Referencia al PuntuacionManager
+
+    void OnTriggerEnter(Collider other)
+    {
+        // if (other.CompareTag("Jugador")) // Asegúrate de que tu jugador tiene esta etiqueta
+        // {
+            if (gameObject.CompareTag("Huevo"))
+            {
+                puntuacionManager.SumarPuntos(50); // Suma 50 puntos
+                Destroy(gameObject); // Elimina el huevo de la escena
+            }
+            else if (gameObject.CompareTag("Huevo"))
+            {
+                puntuacionManager.SumarPuntos(100); // Suma 100 puntos
+                Destroy(gameObject); // Elimina el huevo de la escena
+            }
+        // }
+    }
+}
+
+
+```
+```csharp
+using UnityEngine;
+using UnityEngine.UI;
+
+public class ejer7_puntuacion : MonoBehaviour
+{
+    public Text puntuacionTexto; // Referencia al texto que muestra la puntuación
+    public Text recompensaTexto; // Referencia al texto que muestra la recompensa
+    private int puntuacion = 0;
+    private int puntosParaRecompensa = 100; // Puntos necesarios para una recompensa
+
+    void Start()
+    {
+        // Inicializar los textos en pantalla
+        ActualizarPuntuacion();
+        ActualizarRecompensa("Ninguna"); // Texto inicial de la recompensa
+    }
+
+    // Método para sumar puntos y actualizar la UI
+    public void SumarPuntos(int puntos)
+    {
+        puntuacion += puntos;
+        ActualizarPuntuacion();
+
+        // Comprobar si se alcanzaron o superaron los 100 puntos para dar recompensa
+        while (puntuacion >= puntosParaRecompensa)
+        {
+            OtorgarRecompensa();
+            puntosParaRecompensa += 100; // Aumenta el umbral para la siguiente recompensa
+        }
+    }
+
+    // Método para actualizar el texto de puntuación en la UI
+    void ActualizarPuntuacion()
+    {
+        puntuacionTexto.text = "Puntuación: " + puntuacion;
+    }
+
+    // Método para actualizar el texto de recompensa en la UI
+    void ActualizarRecompensa(string mensaje)
+    {
+        recompensaTexto.text = "Recompensa: " + mensaje;
+    }
+
+    // Método que otorga una recompensa y actualiza la UI
+    void OtorgarRecompensa()
+    {
+        // Lógica para otorgar una recompensa (personaliza esto como desees)
+        string recompensa = "Ganaste!";
+        ActualizarRecompensa(recompensa);
+
+        // Aquí podrías activar otros efectos como sonido, partículas, etc.
+        Debug.Log("Recompena ganada!");
+    }
+}
+
+```
 **Ejercicio 8**:
-![video]()
+![video](https://github.com/SergioPerezLoza/p4_interfaces_inteligentes/blob/main/My-project-_2_-Untitled-Windows_-Mac_-Linux-Unity-6-_6000.0.23f1__-_DX11_-2024-10-24-21-49-05.gif)
+
+```csharp
+using UnityEngine;
+
+public class ejer8_arana : MonoBehaviour
+{
+    public float velocidad = 5f; // Velocidad de movimiento
+
+    void Update()
+    {
+        // Movimiento hacia adelante y hacia atrás (W/S) en el eje Z
+        float movimientoAdelanteAtras = Input.GetAxis("Vertical") * velocidad * Time.deltaTime;
+
+        // Movimiento hacia los lados (A/D) en el eje X
+        float movimientoIzquierdaDerecha = Input.GetAxis("Horizontal") * velocidad * Time.deltaTime;
+
+        // Mover la araña en los ejes X e Z
+        transform.Translate(movimientoIzquierdaDerecha, 0, movimientoAdelanteAtras);
+    }
+}
+
+```
+```csharp
+using UnityEngine;
+
+public class HuevoRecoleccion : MonoBehaviour
+{
+    private JuegoManager juegoManager;
+
+    void Start()
+    {
+        // Encontrar el objeto JuegoManager en la escena y enlazarlo
+        juegoManager = GameObject.Find("JuegoManager").GetComponent<JuegoManager>();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player")) // Suponemos que la araña tiene el tag "Player"
+        {
+            juegoManager.RecogerHuevo();
+            Destroy(gameObject); // Destruir el huevo cuando sea recolectado
+        }
+    }
+}
+  
+```
+```csharp
+using UnityEngine;
+using UnityEngine.UI;
+
+public class JuegoManager : MonoBehaviour
+{
+    public Text huevosRestantesTexto; // Referencia al texto de UI
+    public Text mensajeFinalTexto; // Referencia al mensaje final
+    private int huevosRestantes; // Número de huevos en la escena
+
+    void Start()
+    {
+        huevosRestantes = GameObject.FindGameObjectsWithTag("Huevo_modi").Length; // Contar todos los huevos al inicio
+        ActualizarHuevosRestantes();
+        mensajeFinalTexto.gameObject.SetActive(false); // Ocultar el mensaje final al inicio
+    }
+
+    public void RecogerHuevo()
+    {
+        huevosRestantes--;
+        ActualizarHuevosRestantes();
+
+        if (huevosRestantes <= 0)
+        {
+            JuegoCompletado();
+        }
+    }
+
+    void ActualizarHuevosRestantes()
+    {
+        huevosRestantesTexto.text = "Huevos restantes: " + huevosRestantes;
+    }
+
+    void JuegoCompletado()
+    {
+        mensajeFinalTexto.gameObject.SetActive(true); // Mostrar el mensaje final
+        mensajeFinalTexto.text = "¡Todos los huevos recolectados! Juego Completado";
+    }
+}
+
+```
 **Ejercicio 9**:
 Hacer objeto físico el cubo ya fue implementado en el ejercicio 3 así que es lo mismo.
