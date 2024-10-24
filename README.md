@@ -151,16 +151,16 @@ Para el ejercicio 2 hemos sustituido con el asset importado las esferas por ara�
 ![image](https://github.com/user-attachments/assets/e5a14f91-427c-4cd8-854a-08c7e0a0459d)
 
 **Ejercicio 3**:
-
+![video](https://github.com/SergioPerezLoza/p4_interfaces_inteligentes/blob/main/My-project-_2_-Untitled-Windows_-Mac_-Linux-Unity-6-_6000.0.23f1__-_DX11_-2024-10-24-18-15-32.gif)
 **Ejercicio 4**:
-
+![video]()
 **Ejercicio 5**:
-
+![video]()
 **Ejercicio 6**:
-
+![video]()
 **Ejercicio 7**:
-
+![video]()
 **Ejercicio 8**:
-
+![video]()
 **Ejercicio 9**:
 Hacer objeto físico el cubo ya fue implementado en el ejercicio 3 así que es lo mismo.
